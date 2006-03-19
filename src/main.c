@@ -703,6 +703,22 @@ void send_user_info(struct user_t *from_user, char *to_user_nick, int all)
       case 9:
 	sprintfa(send_buf, "LAN(T3)");
 	break;
+// @Ciuly: added some other connection types
+      case 10:
+	sprintfa(send_buf, "Wireless");
+        break;
+      case 11:
+	sprintfa(send_buf, "Modem");
+        break;
+      case 12:
+	sprintfa(send_buf, "Netlimiter");
+        break;
+// end @Ciuly
+// Start fix for 1027168 by Ciuly	
+      default:
+        sprintfa(send_buf, "Unknown");
+        break;
+// End fix for 1027168
      }
    sprintfa(send_buf, "%c", from_user->flag);
    sprintfa(send_buf, "$");

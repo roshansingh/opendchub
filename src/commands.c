@@ -1164,8 +1164,23 @@ int my_info(char *org_buf, struct user_t *user)
 	else
 	  user->con_type = 8;
 	break;
+// @Ciuly: Added a list of connection types (issue derived from 1027168	
+      case 'W':
+        user->con_type = 10; //Wireless
+        break;
+      case 'M':
+        user->con_type = 11; //Modem
+	break;
+      case 'N':
+        user->con_type = 12; //Netlimiter
+	break;
+// end @Ciuly
       default:
-	return 0;
+// Start fix for 1027168 by Ciuly
+//	return 0;
+        user->con_type = 255;//unknown
+	break;
+// End fix for 1027168
      }
    
    /* Set flag */

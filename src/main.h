@@ -120,7 +120,9 @@ struct user_t
    char *desc;                        /* Description of users files, optional */ 
    BYTE con_type;                     /* Users connection type: 1: 28,8; 2: 33,6;  
 				       3: 56; 4: Satellite; 5: ISDN; 6: DSL;  
-				       7: Cable; 8: LAN(T1); 9: LAN(T3) */ 
+				       7: Cable; 8: LAN(T1); 9: LAN(T3);
+				       10: Wireless; 11: Modem; 12:Netlimiter;
+				       255: Unknown */ 
    BYTE flag;                         /* Users flag, represented by one byte */ 
    long long share;                   /* Size of users share in bytes */
    char *buf;                         /* If a command doesnt't fit in one packet,
