@@ -1,3 +1,6 @@
+0.7.15:
+*  Fixed a bug that disconnected users having uncommon connection types.
+
 0.7.14:
 *  Fixed a bug that caused users to not be removed properly from scripts.
 *  Fixed a bug that made check_if_allowed() fail for complete hostnames. Fix
