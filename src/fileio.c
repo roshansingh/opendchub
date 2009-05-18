@@ -2267,7 +2267,7 @@ int send_motd(struct user_t *user)
 int welcome_mess(struct user_t *user)
 {
    int ret;
-   uprintf(user, "$To: %s From: Hub $", user->nick);
+   //uprintf(user, "$To: %s From: Hub $", user->nick);   //This did not let motd to be sent when new user connects. 
    ret = send_motd(user);
    send_to_user("|", user);
    return ret;
