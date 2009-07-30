@@ -1266,7 +1266,7 @@ int my_info(char *org_buf, struct user_t *user)
 	  {
 	     if((redir_on_min_share == 1) && (redirect_host != NULL) && ((int)redirect_host[0] > 0x20))
 	       {		  
-		  uprintf(user, "$Hello %s|$To: %s From: Hub $Minimum share for this hub is %lld MegaBytes. You are being redirected.|", user->nick, user->nick, (long long)min_share / (1024*1024));
+		  uprintf(user, "Minimum share for this hub is %2.2f GigaBytes. You are being redirected.|", (double)min_share / (1024*1024*1024));
 		  uprintf(user, "$ForceMove %s|", redirect_host);
 		  logprintf(1, "User %s at %s doesn't share enough, redirecting user\n", user->nick, user->hostname);		  
 		  if((user->type & (REGULAR | REGISTERED)) != 0)
@@ -1287,14 +1287,14 @@ int my_info(char *org_buf, struct user_t *user)
 		  return 1;
 	       }
 	     else
-	       uprintf(user, "$Hello %s|$To: %s From: Hub $Minimum share for this hub is %lld MegaBytes. Please share some more.|", user->nick, user->nick, (long long)min_share / (1024*1024));
+	       uprintf(user, "Minimum share for this hub is %2.2f GigaBytes. Please share some more.|", (double)min_share / (1024*1024*1024));
 	  }
 	
 	else
 	  {
 	     if((redir_on_min_share == 1) && (redirect_host != NULL) && ((int)redirect_host[0] > 0x20))
 	       {		  
-		  uprintf(user, "$Hello %s|$To: %s From: Hub $Minimum share for this hub is %2.2f GigaBytes. You are being redirected.|", user->nick, user->nick, (double)min_share / (1024*1024*1024));
+		  uprintf(user, "Minimum share for this hub is %2.2f GigaBytes. You are being redirected.|", (double)min_share / (1024*1024*1024));
 		  uprintf(user, "$ForceMove %s|", redirect_host);
 		  logprintf(1, "User %s at %s doesn't share enough, redirecting user\n", user->nick, user->hostname);
 		  if((user->type & (REGULAR | REGISTERED | OP | OP_ADMIN)) 
@@ -1316,7 +1316,7 @@ int my_info(char *org_buf, struct user_t *user)
 		  return 1;
 	       }
 	     else
-	       uprintf(user, "$Hello %s|$To: %s From: Hub $Minimum share for this hub is %2.2f GigaBytes. Please share some more.|", user->nick, user->nick, (double)min_share / (1024*1024*1024));
+	       uprintf(user, "Minimum share for this hub is %2.2f GigaBytes. Please share some more.|", (double)min_share / (1024*1024*1024));
 	  }
 	
 	logprintf(1, "User %s at %s doesn't share enough, kicking user\n", user->nick, user->hostname);
