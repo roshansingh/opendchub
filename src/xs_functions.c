@@ -401,6 +401,8 @@ XS(xs_get_variable)
      XSRETURN_PV(hub_description);
    else if(!strncmp(var_name, "min_share", 9))
      XSRETURN_NV(min_share);
+   else if(!strncmp(var_name, "min_upload_slots", 16))
+     XSRETURN_NV(min_upload_slots);
    else if(!strncmp(var_name, "admin_pass", 10))
      XSRETURN_PV(admin_pass);
    else if(!strncmp(var_name, "default_pass", 12))

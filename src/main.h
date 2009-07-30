@@ -185,7 +185,8 @@ char   redirect_host[MAX_HOST_LEN+1]; /* Host to redirect users to if hub is ful
 char   *hub_full_mess;
 int    max_users;
 int    max_sockets;
-long long min_share;      /* Minimum share for clients */
+long long min_share;       /* Minimum share for clients */
+int    min_upload_slots;    /* Minimum upload slots for clients */
 int    total_share_shm;    /* Identifier for the shared memory segment that contains the total share on hub, uploaded to public hub list.  */
 int    total_share_sem;    /* Semaphore Id for the shared momry segment above.  */
 int    user_list_shm_shm;  /* Identifier for shared memory segment containing the shared memory segment for the user list :)  */

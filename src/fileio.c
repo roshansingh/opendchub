@@ -251,6 +251,14 @@ int read_config(void)
 		  min_share = strtoll(line + i, (char **)NULL, 10);
 	       }
 	     
+             /* Minimum upload slots for a user */
+	     else if(strncmp(line + i, "min_upload_slots", 16) == 0)
+	       {
+		  while(!isdigit((int)line[i]))
+		    i++;
+		  min_upload_slots = atoi(line + i);
+	       }
+
 	     /* Password for admin to log in via telnet */
 	     else if(strncmp(line + i, "admin_pass", 10) == 0)
 	       {
@@ -1771,6 +1779,8 @@ int write_config_file(void)
    fprintf(fp, "hub_description = \"%s\"\n\n", hub_description);
    
    fprintf(fp, "min_share = %llu\n\n", min_share);
+
+   fprintf(fp, "min_upload_slots = %d\n\n", min_upload_slots);
 	       
    fprintf(fp, "admin_pass = \"%s\"\n\n", admin_pass);
 

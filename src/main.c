@@ -87,6 +87,7 @@ int set_default_vars(void)
 {
    users_per_fork = 1000;
    min_share = 0;
+   min_upload_slots = 0;
    max_users = 1000;
    hublist_upload = 1;
    registered_only = 0;
