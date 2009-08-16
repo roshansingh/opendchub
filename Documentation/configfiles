@@ -15,6 +15,9 @@ hub_name = "Open DC Hub"
 # Maximum users in hub.
 max_users = 1000
 
+# Minimum upload slots.
+min_upload_slots = 0
+
 # This message is displayed to the user if hub is full.
 hub_full_mess = "Sorry, this hub is full at the moment"
 
