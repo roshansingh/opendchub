@@ -964,10 +964,10 @@ void get_info(char *buf, struct user_t *user)
  * makes this function a little bit hard to follow.  */
 int my_info(char *org_buf, struct user_t *user)
 {
-   int i, k, ret, user_slots;
+   int i, k, ret, user_slots, len;
    int desc_too_long = 0;
    int email_too_long = 0;
-   char *buf, discard[50];
+   char *buf, discard[50] ;
    char *send_buf;
    char hello_buf[MAX_NICK_LEN+9];
    char temp_size[50];
@@ -1096,13 +1096,14 @@ int my_info(char *org_buf, struct user_t *user)
    buf = buf + i + 1;
    
    /* validate min upload slots */
-   sscanf(buf, "%[^S]S:%d", &discard, &user_slots);
+   /* sscanf(buf, "%[^S]S:%d%[>]", &discard, &user_slots, &discard);
+   
    if(user_slots < min_upload_slots)
      {
 	uprintf(user, "Your upload slots are less than the allowed limit. Minimum upload slots for this hub is %d. Please increase your upload slots.|", min_upload_slots);
 	logprintf(1, "User %s at %s doesn't have enough slots open, kicking user\n", user->nick, user->hostname);
 	return 0;
-     }
+     }*/
 
    if(user->desc != NULL)
      {
@@ -1113,6 +1114,23 @@ int my_info(char *org_buf, struct user_t *user)
    if(*buf != '$')
      {
 	k = cut_string(buf, '$');
+
+	/* validate min upload slots */
+	/* New way to locate 'S' in buf*/	
+	for (i = k; i>=0; i--)
+	{
+		if(buf[i] == 'S')
+			break;
+	}
+	
+	sscanf(buf+i-1, "%[^S]S:%d", &discard, &user_slots);
+	if(user_slots < min_upload_slots)
+     	  {
+	    uprintf(user, "Your upload slots are less than the allowed limit. Minimum upload slots for this hub is %d. Please increase your upload slots.|", min_upload_slots);
+	    logprintf(1, "User %s at %s doesn't have enough slots open, kicking user\n", user->nick, user->hostname);
+	    return 0;
+          }
+
 	if((max_desc_len == 0) || (k <= max_desc_len))
 	  {
 	     if((user->desc = (char *) malloc(sizeof(char) * (k + 1))) == NULL)
