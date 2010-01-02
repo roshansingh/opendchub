@@ -2884,7 +2884,8 @@ void redirect_all(char *buf, struct user_t *user)
 {
    char move_string[MAX_HOST_LEN+20];
    
-   sprintf(move_string, "$ForceMove %s", buf);
+   /* sprintf(move_string, "$ForceMove %s", buf); /* Reported as bug in debian, buffer overflow */
+   snprintf(move_string, MAX_HOST_LEN, "$ForceMove %s", buf);
  
    send_to_humans(move_string, REGULAR | REGISTERED | OP, user);
    remove_all(UNKEYED | NON_LOGGED | REGULAR | REGISTERED | OP, 1, 1);

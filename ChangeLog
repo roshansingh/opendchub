@@ -13,3 +13,13 @@ This is the new changelog to log all changes in a new style. The older chnagelog
 2009-08-15: Roshan Kumar Singh <singh.roshan08@gmail.com>
 	    * Makefile.in, configure, config.h.in, src/Makefile.in: Updated according to new autotools.
 	    ** Release of new version 0.8.0 with added support for checking minimum slots and error messages for minimum shares. 
+
+2009-12-29: Roshan Kumar Singh <singh.roshan08@gmail.com>
+	    * src/perl_utils.c
+	    ** Placed calls to PERL_SYS_INIT3() and PERL_SYS_TERM() in perl_init() upon Perl interpreter creation, as documented in perldoc perlembed.
+	       Patch sent by Zak B. Elep <zakame@zakame.net>
+
+2009-12-29: Roshan Kumar Singh <singh.roshan08@gmail.com>
+	    * src/commands.c
+	    ** Fix for buffer overflow in redirect_all()
+	       Patch sent by Zak B. Elep <zakame@zakame.net>

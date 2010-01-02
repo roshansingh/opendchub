@@ -63,6 +63,7 @@ int perl_init(void)
 {
    char path[MAX_FDP_LEN+1];
    char *script_list[256];
+   int myargc = 2;
    char *myargv[] = {"", NULL};
    int i, k, len;
    int sock;
@@ -202,6 +203,9 @@ int perl_init(void)
 	     /* Remove all users.  */	    
 	     remove_all(~SCRIPT, 0, 0);
 	     
+	     /* Initialize the Perl environment */ /* New addition as reported */
+             PERL_SYS_INIT3(&myargc, &myargv, NULL);
+
 	     /* Initialize the perl interpreter for this process */
 	     if((my_perl = perl_alloc()) == NULL) 
 	       {	
@@ -211,7 +215,8 @@ int perl_init(void)
 	       }
 	     
 	     perl_construct(my_perl);
-	     if(perl_parse(my_perl, xs_init, 2, myargv, NULL))
+	     /* if(perl_parse(my_perl, xs_init, 2, myargv, NULL)) */ /* New addition as reported */
+	     if(perl_parse(my_perl, xs_init, myargc, myargv, NULL))
 	       {
 		  logprintf(1, "Parse of %s failed.\n", script_list[i]);
 		  free(script_list[i]);
@@ -240,6 +245,9 @@ int perl_init(void)
 	       }
 
 	     free(script_list[i]);
+
+	     /* Free the Perl environment */
+             PERL_SYS_TERM();
 	     
 	     /* Get info of all users.  */
 	     if(i == 0)
