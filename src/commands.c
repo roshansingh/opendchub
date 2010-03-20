@@ -1123,7 +1123,7 @@ int my_info(char *org_buf, struct user_t *user)
 			break;
 	}
 	
-	sscanf(buf+i-1, "%[^S]S:%d", &discard, &user_slots);
+	sscanf(buf+i-1, "%*[^S]S:%d",  &user_slots);
 	if(user_slots < min_upload_slots)
      	  {
 	    uprintf(user, "Your upload slots are less than the allowed limit. Minimum upload slots for this hub is %d. Please increase your upload slots.|", min_upload_slots);
