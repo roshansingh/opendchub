@@ -1,0 +1,128 @@
+# JPbot, v. 0.2.
+# JasioPorzadnis bot dla OpenDCHub.
+# Autor: Piotr Szczepanik <szczepan@tebo.net>, www.szczepanik.org
+# Data: 09.08.2004
+###############
+# [*POLSKI*]
+###############
+# [OPIS] 
+# JPbot (Jas Porzadnis) jest to prosty bot przysluchujacy sie rozmowom uzytkownikow hub'a i reagujacy w momencie wykrycia zakazanych slow. Osoba, ktora uzyje niedozwolonego slowa otrzymuje odpowiedni komunikat i jest wyrzucana badz banowana z hub'a (w zaleznosci od konfiguracji).
+# JPbot posiada rowniez funkcje logowania rozmow odbywajacych sie na czacie DC.
+#
+# [INSTALACJA & KONFIGURACJA]
+# Aby wlaczyc bota nalezy rozpakowac z archiwum plik JPbot.pl i umiescic go w katalogu konfiguracyjnym ODCH (/.opendchub/scripts). Bot jest uruchamiany przy starcie hub'a badz po komendzie administracyjnej: $reloadscripts|
+# Po uruchomieniu w liscie uzytkownikow DC pojawi sie "_JPbot".
+# Domyslnie JPbot kick'uje uzytkownika, ktory uzyje zakazanego slowa. Jezeli chcemy, aby go ban'owal nalezy odkomentowac odpowiednia linie w kodzie.
+#
+# Istnieje rowniez mozliwosc wlaczenia logowania rozmow i komunikatow hub'a. Aby to zrobic nalezy odkomentowac odpowiednie linie w kodzie.
+#
+# JPbot standardowo posiada zbior podstawowych wyrazow uznawanych za niedozwolone. Wlasne, "zakazane" wyrazy nalezy dodawac do tablicy @wyrazy.
+#
+# [ZASADY KORZYSTANIA]
+# JPbot jest w pelni darmowy. Mozesz go uzywac i modyfikowac do woli bez zadnych oplat. Nalezy jednak pozostawic informacje o autorze.
+#
+# [HISTORIA]
+# v.0.2.
+# + dodano mozliwosc logowania rozmow i komunikatow hub'a
+# + wzbogacono zbior zakazanych wyrazow
+# + nowy sposob porownywania wyrazow
+# v.0.1.
+# + pierwsza wersja
+################
+# [*ENGLISH*]
+################
+# [DESCRIPTION]
+# JPbot is a bot for OpenDCHub. Its goal is to kick out all DCHub users who use banned words
+# JPbot can also log to file all DC's chat messages.
+#
+# [INSTALLATION & CONFIGURATION]
+# Extract the tarball to OpenDCHub's configuration directory (/.opendchub/scripts/). JPbot will be executed when ODCH is started or when $reloadscripts| administration command is executed via admin console.
+# When bot is started there will be new position in DC's user list - "_JPbot".
+# By default JPbot kicks out any user who sends forbidden word. If you want to ban those users, you must uncomment a propper line in below source code.
+# 
+# JPbot can also log all DC's chat messages. To enable this function uncomment a propper line of the source code.
+#
+# By default JPbot has a simple dictionary of "bad" words. You can add your own banned words. Add new words into @wyrazy table.
+#
+# [HISTORY]
+# v.0.2.
+# + chat messages logging added
+# + new words in the dictionary 
+# + new matching words system
+# v.0.1.
+# + first version
+
+$botname = "FilterAbuseBot";
+# Tutaj przechowywane sa wyrazy uznawane za niedozwolone.
+# Here you have words that are marked as banned. You can modify this list if you want.
+@wyrazy = ("chod", "fuck", "CHOD", "chutiya", "bhonsar", "bhonsad", "laura", "khanki", "jhaat", "chud","madar","loura");
+
+sub main()
+{
+    odch::register_script_name($botname);
+}
+
+sub data_arrival()
+{
+    my($user, $data) = @_;
+    
+    #
+    # Jezeli chcemy wlaczyc logowanie rozmow i komunikatow hub'a, nalezy odkomentowac ponizsze linie. Domyslnie logowanie odbywa sie do pliku /var/log/opendchub.
+    # If you want enable chat logging uncomment below lines. Default logging file is /var/log/opendchub.
+    #
+    $plik_logowania = ">>/var/log/opendchub";
+    open(PLIK, $plik_logowania);
+    print PLIK $data;
+    print PLIK "\n";
+    close PLIK;
+    
+    if($data =~ /\$To: $botname/)
+      {
+	  # Shows information about user.
+	  if(($data =~ /info/)||($data =~ /\?/))
+	    {
+		odch::data_to_user($user, "\$To: $user From: $botname \$<$botname> ========================|");
+		odch::data_to_user($user, "\$To: $user From: $botname \$<$botname> JasioPorzadnisBot v.0.2.|");
+		odch::data_to_user($user, "\$To: $user From: $botname \$<$botname> (c) Piotr Szczepanik.|");
+		odch::data_to_user($user, "\$To: $user From: $botname \$<$botname> ========================|");
+		odch::data_to_user($user, "\$To: $user From: $botname \$<$botname> Informacje o uzytkowniku.|");		
+		odch::data_to_user($user, "\$To: $user From: $botname \$<$botname> ========================|");		
+		odch::data_to_user($user, "\$To: $user From: $botname \$<$botname> Twoj nick - $user.|");
+		my($ip) = odch::get_ip($user);
+	        odch::data_to_user($user,"\$To: $user From: $botname \$<$botname> Twoj adres IP - $ip.|");
+		my($version) = odch::get_version($user);
+	        odch::data_to_user($user,"\$To: $user From: $botname \$<$botname> Wersja - $version.|");
+		my($desc) = odch::get_description($user);
+	        odch::data_to_user($user,"\$To: $user From: $botname \$<$botname> Twoj opis - $desc.|");
+		my($share) = odch::get_share($user);
+	        odch::data_to_user($user,"\$To: $user From: $botname \$<$botname> Udostepniasz $share bajtow.|");
+		my($count) = odch::count_users();
+		odch::data_to_user($user, "\$To: $user From: $botname \$<$botname> Liczba uzytkownikow $count.|");
+		my($tshare) = odch::get_variable("total_share");
+		odch::data_to_user($user, "\$To: $user From: $botname \$<$botname> W sumie udostepnianych jest $tshare bajtow.|");
+	    }
+	    
+      	  if((lc($data) =~ /cze/)||(lc($data) =~ /wita/))
+	    {
+		odch::data_to_user($user, "\$To: $user From: $botname \$<$botname> Witam. Chetnie bym z Toba pogadal, ale niestety jestem tylko botem :(. Milego dnia.|");
+	    }	    
+      }
+
+    my($user, $data_all) = @_;
+    
+    foreach $wyraz(@wyrazy){
+	@odnalezione = grep{/$wyraz/}lc($data_all);
+	if(@odnalezione){
+	    odch::data_to_user($user, "<$botname> Kicking you, because you used abusive words.|");
+	    odch::data_to_all("<$botname> kicked $user for using banned words|");
+	    #odch::data_to_all("[$botname] Do $user: Nie ladnie jest sie tak wyrazac. Idz sobie stad! PaPa!|");
+				
+	    odch::kick_user($user);	
+	    # Domyslnie bot kick'uje uzytkownika. Jezeli chcesz aby go ban'owal odkomentuj ponizsza linie kodu.
+	    # By default JPbot will kick any user that sends unpropper word. If you want to ban those users uncomment below line.
+	    #odch::add_nickban_entry($user);	    
+	}
+    }
+    
+}
+
