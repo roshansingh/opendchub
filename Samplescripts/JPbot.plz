@@ -55,7 +55,7 @@
 $botname = "FilterAbuseBot";
 # Tutaj przechowywane sa wyrazy uznawane za niedozwolone.
 # Here you have words that are marked as banned. You can modify this list if you want.
-@wyrazy = ("chod", "fuck", "CHOD", "chutiya", "bhonsar", "bhonsad", "laura", "khanki", "jhaat", "chud","madar","loura");
+@wyrazy = ("chod", "fuck", "CHOD", "chutiya", "madar");
 
 sub main()
 {
