@@ -21,7 +21,7 @@ This is the new changelog to log all changes in a new style. The older chnagelog
 2009-08-07: Roshan Kumar Singh <singh.roshan08@gmail.com>
 	    * depcomp: Added depcomp to fix problems in compilation.
 
-2009-08-15: Roshan Kumar Singh <singh.roshan08@gmail.com>
+2009-08-05: Roshan Kumar Singh <singh.roshan08@gmail.com>
 	    * Makefile.in, configure, config.h.in, src/Makefile.in: Updated according to new autotools.
 	    ** Release of new version 0.8.0 with added support for checking minimum slots and error messages for minimum shares. 
 
