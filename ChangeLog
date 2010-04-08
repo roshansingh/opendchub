@@ -1,18 +1,12 @@
 This is the new changelog to log all changes in a new style. The older chnagelog can be found in ChangeLog-0.7.15.
 
-2009-05-16: Roshan Kumar Singh <singh.roshan08@gmail.com>
-	    * src/fileio.c: Commented a line which did not let motd to be sent when a new user connects.
+2010-04-08: Roshan Kumar Singh <singh.roshan08@gmail.com>
+	    * configure.in
+	    ** Removed directory creation during configure
 
-2009-08-04: Roshan Kumar Singh <singh.roshan08@gmail.com>
-	    * src/commands.c, src/fileio.c, src/xs_function.c, src/main.c: Made changes for checking minimun upload slots.
-	      Error messages for kicking users with shares less	than the minimum.
-
-2009-08-07: Roshan Kumar Singh <singh.roshan08@gmail.com>
-	    * depcomp: Added depcomp to fix problems in compilation.
-
-2009-08-15: Roshan Kumar Singh <singh.roshan08@gmail.com>
-	    * Makefile.in, configure, config.h.in, src/Makefile.in: Updated according to new autotools.
-	    ** Release of new version 0.8.0 with added support for checking minimum slots and error messages for minimum shares. 
+2010-04-08: Roshan Kumar Singh <singh.roshan08@gmail.com>
+	    * src/commands.c
+	    ** Fix for buffer overflow bug, https://bugzilla.redhat.com/show_bug.cgi?id=579206
 
 2009-12-29: Roshan Kumar Singh <singh.roshan08@gmail.com>
 	    * src/perl_utils.c
@@ -23,3 +17,21 @@ This is the new changelog to log all changes in a new style. The older chnagelog
 	    * src/commands.c
 	    ** Fix for buffer overflow in redirect_all()
 	       Patch sent by Zak B. Elep <zakame@zakame.net>
+
+2009-08-07: Roshan Kumar Singh <singh.roshan08@gmail.com>
+	    * depcomp: Added depcomp to fix problems in compilation.
+
+2009-08-15: Roshan Kumar Singh <singh.roshan08@gmail.com>
+	    * Makefile.in, configure, config.h.in, src/Makefile.in: Updated according to new autotools.
+	    ** Release of new version 0.8.0 with added support for checking minimum slots and error messages for minimum shares. 
+
+2009-08-04: Roshan Kumar Singh <singh.roshan08@gmail.com>
+	    * src/commands.c, src/fileio.c, src/xs_function.c, src/main.c: Made changes for checking minimun upload slots.
+	      Error messages for kicking users with shares less	than the minimum.
+
+2009-05-16: Roshan Kumar Singh <singh.roshan08@gmail.com>
+	    * src/fileio.c: Commented a line which did not let motd to be sent when a new user connects.
+
+
+
+
