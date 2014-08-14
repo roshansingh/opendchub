@@ -1,5 +1,9 @@
 This is the new changelog to log all changes in a new style. The older chnagelog can be found in ChangeLog-0.7.15.
 
+2014-08-14: Roshan Kumar Singh <singh.roshan08@gmail.com>
+	    * src/fileio.c
+	    ** Fix compilation security warning https://bugzilla.redhat.com/show_bug.cgi?id=1106649 
+
 2010-04-08: Roshan Kumar Singh <singh.roshan08@gmail.com>
 	    * configure.in
 	    ** Removed directory creation during configure
