@@ -1895,7 +1895,7 @@ int remove_reg_user(char *buf, struct user_t *user)
    else
      nick_len = strlen(buf);
    
-   snprintf(nick, (nick_len>MAX_NICK_LEN)?MAX_NICK_LEN+1:nick_len+1, buf);
+   snprintf(nick, (nick_len>MAX_NICK_LEN)?MAX_NICK_LEN+1:nick_len+1, "%s", buf);
 
    if((user->type != ADMIN) && 
       (check_if_registered(nick) > check_if_registered(user->nick)))
@@ -2030,12 +2030,12 @@ int init_dirs(void)
 #else
 #ifdef SWITCH_USER
 	struct passwd *user = getpwuid(dchub_user);
-	snprintf( working_dir, MAX_FDP_LEN, user->pw_dir );
+	snprintf( working_dir, MAX_FDP_LEN, "%s", user->pw_dir );
 #else
 	if( getenv( "HOME" ) == NULL )
 	   return 0;
    
-	snprintf( working_dir, MAX_FDP_LEN, getenv( "HOME" ) );
+	snprintf( working_dir, MAX_FDP_LEN, "%s", getenv( "HOME" ) );
 #endif
 #endif
      }
